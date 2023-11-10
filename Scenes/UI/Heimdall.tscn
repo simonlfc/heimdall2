@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://biokawi46itnw"]
+
+[ext_resource type="Script" path="res://Scripts/Heimdall.cs" id="1_y3von"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cu7lo"]
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[node name="Heimdall" type="Control"]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_y3von")
+
+[node name="Console" type="RichTextLabel" parent="."]
+layout_mode = 2
+offset_left = 49.0
+offset_top = 35.0
+offset_right = 493.0
+offset_bottom = 242.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_cu7lo")
+bbcode_enabled = true
+scroll_active = false
+scroll_following = true

@@ -1,0 +1,16 @@
+﻿global using DiscordRPC;
+global using DiscordRPC.Logging;
+global using Godot;
+global using Google.Protobuf;
+global using Serilog;
+global using Serilog.Configuration;
+global using Serilog.Core;
+global using Serilog.Events;
+global using Steamworks;
+global using System;
+global using System.Collections.Generic;
+global using System.Linq;
+global using System.Net;
+global using System.Runtime.InteropServices;
+global using System.Threading.Tasks;
+global using static Heimdall;
