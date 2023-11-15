@@ -8,6 +8,8 @@ global using Serilog.Core;
 global using Serilog.Events;
 global using Steamworks;
 global using System;
+global using System.IO;
+global using System.IO.Pipes;
 global using System.Collections.Generic;
 global using System.Linq;
 global using System.Net;

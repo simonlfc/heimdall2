@@ -8,11 +8,13 @@ public partial class Heimdall : Control
 
 	public async override void _Ready()
 	{
+		var kek = GetNode<Label>("Test");
         Input.UseAccumulatedInput = false;
 
         AddChild(Logging);
 		AddChild(Steam);
 		AddChild(Discord);
+		Logging.CreatePipe();
 
         var connect = await Steam.Connect();
 		if (!connect)
@@ -20,6 +22,8 @@ public partial class Heimdall : Control
 			GetTree().Quit();
 			return;
 		}
+
+		kek.Text = "Connected to Steam";
 
 		Discord.Connect();
 	}

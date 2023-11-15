@@ -1,13 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://biokawi46itnw"]
+[gd_scene load_steps=5 format=3 uid="uid://biokawi46itnw"]
 
 [ext_resource type="Script" path="res://Scripts/Heimdall.cs" id="1_y3von"]
+[ext_resource type="FontFile" uid="uid://dmo12mguvt0lb" path="res://Fonts/MonaspaceNeonVarVF[wght,wdth,slnt].ttf" id="2_2jkj4"]
+
+[sub_resource type="FontVariation" id="FontVariation_pa2h6"]
+base_font = ExtResource("2_2jkj4")
+variation_opentype = {
+1936486004: null,
+2003265652: 350
+}
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cu7lo"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
 draw_center = false
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 
 [node name="Heimdall" type="Control"]
 clip_contents = true
@@ -27,7 +35,22 @@ offset_left = 49.0
 offset_top = 35.0
 offset_right = 493.0
 offset_bottom = 242.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.117647)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/line_separation = 5
+theme_override_fonts/normal_font = SubResource("FontVariation_pa2h6")
+theme_override_font_sizes/normal_font_size = 13
 theme_override_styles/normal = SubResource("StyleBoxFlat_cu7lo")
 bbcode_enabled = true
 scroll_active = false
 scroll_following = true
+
+[node name="Test" type="Label" parent="."]
+layout_mode = 0
+offset_left = 145.0
+offset_top = 423.0
+offset_right = 267.0
+offset_bottom = 446.0
+theme_override_font_sizes/font_size = 46
+text = "Starting game..."

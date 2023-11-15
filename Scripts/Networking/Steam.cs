@@ -7,7 +7,7 @@
         if (!SteamAPI.IsSteamRunning())
             return false;
 
-        if (SteamAPI.RestartAppIfNecessary(Heimdall.AppID))
+        if (SteamAPI.RestartAppIfNecessary(AppID))
         {
             GetTree().Quit();
             return false;
@@ -23,7 +23,7 @@
             _connected = SteamAPI.Init();
             if (_connected)
             {
-                Log.Information($"Established connection with Steam");
+                Log.Information("Established connection with Steam");
                 SteamNetworkingUtils.InitRelayNetworkAccess();
                 break;
             }

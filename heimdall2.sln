@@ -1,12 +1,18 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "heimdall2", "heimdall2.csproj", "{D9B8A936-3BD5-45DC-ACA0-465E3B3AAA91}"
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34302.71
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "heimdall2", "heimdall2.csproj", "{D9B8A936-3BD5-45DC-ACA0-465E3B3AAA91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalConsole", "ExternalConsole\ExternalConsole.csproj", "{FAA7A3AA-E63A-4746-A86D-C8D50F905FEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-	Debug|Any CPU = Debug|Any CPU
-	ExportDebug|Any CPU = ExportDebug|Any CPU
-	ExportRelease|Any CPU = ExportRelease|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		ExportDebug|Any CPU = ExportDebug|Any CPU
+		ExportRelease|Any CPU = ExportRelease|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D9B8A936-3BD5-45DC-ACA0-465E3B3AAA91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -15,5 +21,21 @@ Global
 		{D9B8A936-3BD5-45DC-ACA0-465E3B3AAA91}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
 		{D9B8A936-3BD5-45DC-ACA0-465E3B3AAA91}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
 		{D9B8A936-3BD5-45DC-ACA0-465E3B3AAA91}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{D9B8A936-3BD5-45DC-ACA0-465E3B3AAA91}.Release|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{D9B8A936-3BD5-45DC-ACA0-465E3B3AAA91}.Release|Any CPU.Build.0 = ExportRelease|Any CPU
+		{FAA7A3AA-E63A-4746-A86D-C8D50F905FEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAA7A3AA-E63A-4746-A86D-C8D50F905FEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAA7A3AA-E63A-4746-A86D-C8D50F905FEE}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAA7A3AA-E63A-4746-A86D-C8D50F905FEE}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{FAA7A3AA-E63A-4746-A86D-C8D50F905FEE}.ExportRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{FAA7A3AA-E63A-4746-A86D-C8D50F905FEE}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
+		{FAA7A3AA-E63A-4746-A86D-C8D50F905FEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAA7A3AA-E63A-4746-A86D-C8D50F905FEE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {96F65D93-36A7-4A78-8232-9832BA6AE9C4}
 	EndGlobalSection
 EndGlobal
