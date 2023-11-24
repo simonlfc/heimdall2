@@ -1,0 +1,1 @@
+C:\godot\Godot_v4.2-rc1_mono_win64 --path . --headless +dedicated

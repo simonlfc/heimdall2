@@ -1,6 +1,6 @@
 ﻿public partial class SteamBase : Node
 {
-    private bool _connected;
+    public bool Connected;
 
     public async Task<bool> Connect()
     {
@@ -13,15 +13,14 @@
             return false;
         }
 
-        // attempt to initialise Steam API
         var connectionString = "Connecting to Steam";
         for (int i = 0; i < 10; i++)
         {
             Log.Information($"{connectionString}");
             connectionString += ".";
 
-            _connected = SteamAPI.Init();
-            if (_connected)
+            Connected = SteamAPI.Init();
+            if (Connected)
             {
                 Log.Information("Established connection with Steam");
                 SteamNetworkingUtils.InitRelayNetworkAccess();
@@ -31,12 +30,12 @@
             await Task.Delay(1000);
         }
 
-        return _connected;
+        return Connected;
     }
 
     public override void _Process(double delta)
     {
-        if (!_connected)
+        if (!Connected)
             return;
 
         SteamAPI.RunCallbacks();

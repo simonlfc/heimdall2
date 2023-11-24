@@ -6,6 +6,8 @@ public partial class Heimdall : Control
 	public static SteamBase Steam = new();
 	public static DiscordBase Discord = new();
 
+	public static Lobby PersistentLobby = new();
+
 	public async override void _Ready()
 	{
 		var kek = GetNode<Label>("Test");
@@ -14,7 +16,7 @@ public partial class Heimdall : Control
         AddChild(Logging);
 		AddChild(Steam);
 		AddChild(Discord);
-		Logging.CreatePipe();
+		//Logging.CreatePipe();
 
         var connect = await Steam.Connect();
 		if (!connect)
@@ -26,5 +28,7 @@ public partial class Heimdall : Control
 		kek.Text = "Connected to Steam";
 
 		Discord.Connect();
+
+		PersistentLobby.Create(ELobbyType.k_ELobbyTypeFriendsOnly);
 	}
 }

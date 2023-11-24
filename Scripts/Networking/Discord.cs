@@ -1,10 +1,15 @@
-﻿using DiscordRPC.Message;
+﻿using Google.Protobuf.WellKnownTypes;
 
 public partial class DiscordBase : Node
 {
     private const string _clientID = "1133122335528996995";
     private DiscordRpcClient _client;
     private bool _connected;
+
+    private readonly Timestamps _timestamp = new(DateTime.UtcNow);
+
+    private RichPresence _current = null;
+    private RichPresence _next = null;
 
     public override void _Ready()
     {
@@ -21,11 +26,15 @@ public partial class DiscordBase : Node
 
     private void OnConnected(object sender, ReadyMessage args)
     {
+        _connected = true;
         Log.Information("Opened Discord pipe");
-        UpdatePresence(new RichPresence()
+        if (_next == null)
         {
-            Details = "Dev"
-        });
+            SetRichPresence(new RichPresence
+            { 
+                Details = "Waiting for lobby" 
+            });
+        }
     }
 
     public override void _ExitTree()
@@ -39,19 +48,22 @@ public partial class DiscordBase : Node
             return;
 
         _client?.Invoke();
+
+        if (_current != _next)
+        {
+            _current = _next;
+            _client?.SetPresence(_current);
+        }
     }
 
-    public void UpdatePresence(RichPresence presence)
+    public void SetRichPresence(RichPresence newPresence)
     {
-        presence.Timestamps = new Timestamps()
-        {
-            Start = DateTime.UtcNow
-        };
-        presence.Assets = new Assets()
+        newPresence.Timestamps = _timestamp;
+        newPresence.Assets = new Assets()
         {
             LargeImageKey = "heimdall"
         };
 
-        _client?.SetPresence(presence);
+        _next = newPresence;
     }
 }

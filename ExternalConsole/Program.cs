@@ -1,17 +1,27 @@
-﻿using System.IO.Pipes;
+﻿using HeimdallShared;
+using System.IO.Pipes;
 
-using (var _pipe = new NamedPipeClientStream(".", "HeimdallPipe", PipeDirection.Out))
+internal class Program
 {
-    _pipe.Connect();
-    using StreamWriter writer = new(_pipe);
-    while (true)
-    {
-        Console.Write("cmd: ");
-        string? command = Console.ReadLine();
-        if (command == null)
-            continue;
+    private static ConsolePipe _consolePipe;
 
-        writer.WriteLine(command);
-        writer.Flush();
+    private static async Task Main()
+    {
+        Console.WriteLine("$ Heimdall external console");
+        _consolePipe = new(new NamedPipeClientStream(".", "HeimdallPipe", PipeDirection.InOut));
+        Console.WriteLine("$ Attempting connection");
+        await _consolePipe.Connect();
+        Console.WriteLine("$ Established connection");
+
+        _consolePipe.OnMessageReceived += (text) =>
+        {
+            Console.WriteLine($"{text}");
+        };
+
+        while (true)
+        {
+            var message = Console.ReadLine();
+            _consolePipe.Send(message);
+        }
     }
 }

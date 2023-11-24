@@ -1,9 +1,7 @@
-﻿using Serilog.Core;
-
-public partial class LoggingBase : Node
+﻿public partial class LoggingBase : Node
 {
     private RichTextLabel _minicon;
-    private NamedPipeServerStream _pipe;
+    public ConsolePipe Pipe;
 
     public override void _Ready()
     {
@@ -14,28 +12,15 @@ public partial class LoggingBase : Node
 
         _minicon = GetTree().Root.GetNode<RichTextLabel>("Heimdall/Console");
     }
-
     public async void CreatePipe()
     {
-        _pipe = new NamedPipeServerStream("HeimdallPipe", PipeDirection.InOut);
-        await _pipe.WaitForConnectionAsync();
-        Log.Information("External client connected to console pipe");
-        _ = Task.Run(ReceiveFromPipe);
-    }
+        Pipe = new ConsolePipe(new NamedPipeServerStream("HeimdallPipe", PipeDirection.InOut));
+        await Pipe.Connect();
 
-    private async void ReceiveFromPipe()
-    {
-        using var reader = new StreamReader(_pipe);
-        while (true)
+        Pipe.OnMessageReceived += (text) =>
         {
-            if (!_pipe.IsConnected || reader == null)
-                continue;
-
-            string buffer;
-            while ((buffer = await reader.ReadLineAsync()) != null)
-                Log.Information($"Received message {buffer}");
-
-        }
+            Log.Information($"We got a message {text}");
+        };
     }
 
     public void Print(string text)
