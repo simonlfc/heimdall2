@@ -1,6 +1,7 @@
 ﻿using System.Net.Sockets;
 using System.Net;
 using System.Text;
+using Terminal.Gui;
 
 internal class Program
 {
@@ -10,6 +11,43 @@ internal class Program
 
     private static void Main()
     {
+        Application.Init();
+        Application.IsMouseDisabled = true;
+
+        var win = new Window("kekkedy")
+        {
+            X = 0,
+            Y = 0,
+            Width = Dim.Fill(),
+            Height = Dim.Fill(),
+            Border = new Border()
+            {
+                BorderStyle = BorderStyle.None
+            }
+        };
+        Application.Top.Add(win);
+
+        var consolePrefix = new Label("heimdall2>")
+        {
+            X = 0,
+            Y = Pos.AnchorEnd(1),
+            AutoSize = true,
+            Height = 1,
+        };
+        Application.Top.Add(consolePrefix);
+
+        var consoleInput = new TextField("haha")
+        {
+            X = 11,
+            Y = Pos.AnchorEnd(1),
+            AutoSize = true,
+            Height = 1,
+        };
+
+        Application.Top.Add(consoleInput);
+        //Application.Run();
+        consoleInput.SetFocus();
+
         while (true)
         {
             try
@@ -25,11 +63,11 @@ internal class Program
 
                 while (true)
                 {
-                    string userInput = Console.ReadLine();
-                    if (userInput.Equals("quit", StringComparison.CurrentCultureIgnoreCase))
+                    var input = Console.ReadLine();
+                    if (input.Equals("quit", StringComparison.CurrentCultureIgnoreCase))
                         break;
 
-                    SendMessage(userInput);
+                    SendMessage(input);
                 }
 
                 _socket.Shutdown(SocketShutdown.Both);
