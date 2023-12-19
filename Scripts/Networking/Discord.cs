@@ -21,6 +21,12 @@ public partial class DiscordBase : Node
 
     public void Connect()
     {
+        if (Dedicated)
+        {
+            QueueFree();
+            return;
+        }
+
         _client.Initialize();
     }
 

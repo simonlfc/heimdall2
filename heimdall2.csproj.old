@@ -1,4 +1,4 @@
-<Project Sdk="Godot.NET.Sdk/4.2.0">
+<Project Sdk="Godot.NET.Sdk/4.2.0-rc.1">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net7.0</TargetFramework>
@@ -14,7 +14,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DiscordRichPresence" Version="1.2.1.24" />
-    <PackageReference Include="Google.Protobuf" Version="3.25.1" />
+    <PackageReference Include="Google.Protobuf" Version="3.24.4" />
     <PackageReference Include="Serilog" Version="3.0.1" />
     <PackageReference Include="Steamworks.NET" Version="20.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

@@ -28,8 +28,8 @@
 
         var message = logEvent.RenderMessage(_formatProvider);
         GD.PrintRich($"[{DateTime.Now:HH:mm} {level}] {message}");
+        Logging.SendToSocket($"[{DateTime.Now:HH:mm}] {message}");
         Logging.Print($"[color=darkgray][{DateTime.Now:HH:mm}][/color] [color=#{color}]{message}[/color]");
-        Logging.Pipe?.Send(message);
     }
 }
 

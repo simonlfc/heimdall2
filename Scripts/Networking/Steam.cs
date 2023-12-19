@@ -1,6 +1,7 @@
 ﻿public partial class SteamBase : Node
 {
     public bool Connected;
+    public LobbyManagerBase LobbyManager;
 
     public async Task<bool> Connect()
     {
@@ -28,6 +29,12 @@
             }
 
             await Task.Delay(1000);
+        }
+
+        if (Connected)
+        {
+            LobbyManager = new();
+            LobbyManager.Create(ELobbyType.k_ELobbyTypeFriendsOnly);
         }
 
         return Connected;

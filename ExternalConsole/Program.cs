@@ -1,27 +1,101 @@
-﻿using HeimdallShared;
-using System.IO.Pipes;
+﻿using System.Net.Sockets;
+using System.Net;
+using System.Text;
 
 internal class Program
 {
-    private static ConsolePipe _consolePipe;
+    private const int _localPort = 10240;
+    private const string _localIP = "127.0.0.1";
+    private static Socket _socket;
 
-    private static async Task Main()
+    private static void Main()
     {
-        Console.WriteLine("$ Heimdall external console");
-        _consolePipe = new(new NamedPipeClientStream(".", "HeimdallPipe", PipeDirection.InOut));
-        Console.WriteLine("$ Attempting connection");
-        await _consolePipe.Connect();
-        Console.WriteLine("$ Established connection");
-
-        _consolePipe.OnMessageReceived += (text) =>
-        {
-            Console.WriteLine($"{text}");
-        };
-
         while (true)
         {
-            var message = Console.ReadLine();
-            _consolePipe.Send(message);
+            try
+            {
+                var localhost = IPAddress.Parse(_localIP);
+                var endpoint = new IPEndPoint(localhost, _localPort);
+
+                _socket = new Socket(localhost.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                _socket.Connect(endpoint);
+
+                Console.WriteLine("Connected to console");
+                _ = Task.Run(ReceiveMessages);
+
+                while (true)
+                {
+                    string userInput = Console.ReadLine();
+                    if (userInput.Equals("quit", StringComparison.CurrentCultureIgnoreCase))
+                        break;
+
+                    SendMessage(userInput);
+                }
+
+                _socket.Shutdown(SocketShutdown.Both);
+                _socket.Close();
+                Console.WriteLine("Disconnected from game console.");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"{e.Message}");
+                Console.WriteLine($"Reconnecting in 5 seconds...");
+                Thread.Sleep(5000);
+            }
+        }
+    }
+
+    private static void SendMessage(string message)
+    {
+        if (!_socket.Connected)
+            return;
+
+        try
+        {
+            byte[] buffer = Encoding.ASCII.GetBytes(message);
+            _socket.Send(buffer);
+        }
+        catch (SocketException se)
+        {
+            Console.WriteLine($"SendMessage: {se.Message}");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"SendMessage: {e.Message}");
+        }
+    }
+
+    private static void ReceiveMessages()
+    {
+        try
+        {
+            while (true)
+            {
+                byte[] buffer = new byte[1024];
+                var data = _socket.Receive(buffer);
+
+                if (data == 0)
+                {
+                    Console.WriteLine("Lost connection to game.");
+                    break;
+                }
+
+                var message = Encoding.ASCII.GetString(buffer, 0, data);
+                Console.WriteLine(message);
+            }
+        }
+        catch (SocketException se)
+        {
+            Console.WriteLine($"ReceiveMessages: {se.Message}");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"ReceiveMessages: {e.Message}");
+        }
+        finally
+        {
+            _socket.Shutdown(SocketShutdown.Both);
+            _socket.Close();
         }
     }
 }

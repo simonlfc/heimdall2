@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+message ServerSendInfo_t {
+    uint64 steam_id = 1;
+    bool secure = 2;
+    string hostname = 3;
+    string mapname = 4;
+    string gametype = 5;
+}
+
+message ServerPassAuthentication_t {
+    uint32 data = 1;
+}
+
+message ServerFailAuthentication_t {
+    uint32 data = 1;
+}
+
+message ClientBeginAuthentication_t {
+    uint32 token_length = 1;
+    bytes token = 2;
+}
+
+message GameMessage {
+    oneof type {
+        ServerSendInfo_t ServerSendInfo = 1;
+        ServerPassAuthentication_t ServerPassAuthentication = 2;
+        ServerFailAuthentication_t ServerFailAuthentication = 3;
+        ClientBeginAuthentication_t ClientBeginAuthentication = 4;
+    }
+}

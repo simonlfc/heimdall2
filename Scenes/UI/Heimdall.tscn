@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://biokawi46itnw"]
+[gd_scene load_steps=7 format=3 uid="uid://biokawi46itnw"]
 
 [ext_resource type="Script" path="res://Scripts/Heimdall.cs" id="1_y3von"]
 [ext_resource type="FontFile" uid="uid://dmo12mguvt0lb" path="res://Fonts/MonaspaceNeonVarVF[wght,wdth,slnt].ttf" id="2_2jkj4"]
+[ext_resource type="Shader" path="res://Shaders/UIGlow.gdshader" id="3_7qw00"]
 
 [sub_resource type="FontVariation" id="FontVariation_pa2h6"]
 base_font = ExtResource("2_2jkj4")
@@ -16,6 +17,10 @@ content_margin_top = 5.0
 content_margin_right = 5.0
 content_margin_bottom = 5.0
 draw_center = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cytya"]
+render_priority = 0
+shader = ExtResource("3_7qw00")
 
 [node name="Heimdall" type="Control"]
 clip_contents = true
@@ -47,6 +52,7 @@ scroll_active = false
 scroll_following = true
 
 [node name="Test" type="Label" parent="."]
+material = SubResource("ShaderMaterial_cytya")
 layout_mode = 0
 offset_left = 145.0
 offset_top = 423.0
@@ -54,3 +60,10 @@ offset_right = 267.0
 offset_bottom = 446.0
 theme_override_font_sizes/font_size = 46
 text = "Starting game..."
+
+[node name="Lobby" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 740.0
+offset_top = 307.0
+offset_right = 1014.0
+offset_bottom = 546.0
