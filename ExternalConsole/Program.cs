@@ -1,7 +1,6 @@
-﻿using System.Net.Sockets;
-using System.Net;
+﻿using System.Net;
+using System.Net.Sockets;
 using System.Text;
-using Terminal.Gui;
 
 internal class Program
 {
@@ -11,43 +10,7 @@ internal class Program
 
     private static void Main()
     {
-        Application.Init();
-        Application.IsMouseDisabled = true;
-
-        var win = new Window("kekkedy")
-        {
-            X = 0,
-            Y = 0,
-            Width = Dim.Fill(),
-            Height = Dim.Fill(),
-            Border = new Border()
-            {
-                BorderStyle = BorderStyle.None
-            }
-        };
-        Application.Top.Add(win);
-
-        var consolePrefix = new Label("heimdall2>")
-        {
-            X = 0,
-            Y = Pos.AnchorEnd(1),
-            AutoSize = true,
-            Height = 1,
-        };
-        Application.Top.Add(consolePrefix);
-
-        var consoleInput = new TextField("haha")
-        {
-            X = 11,
-            Y = Pos.AnchorEnd(1),
-            AutoSize = true,
-            Height = 1,
-        };
-
-        Application.Top.Add(consoleInput);
-        //Application.Run();
-        consoleInput.SetFocus();
-
+        Console.WriteLine("Awaiting console connection");
         while (true)
         {
             try
@@ -114,7 +77,7 @@ internal class Program
 
                 if (data == 0)
                 {
-                    Console.WriteLine("Lost connection to game.");
+                    Console.WriteLine("Lost connection to game");
                     break;
                 }
 
